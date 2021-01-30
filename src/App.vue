@@ -1,17 +1,83 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <input type="text" v-model="val" @keydown.enter="addTodo">
+    <ul>
+      <li v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
+    </ul>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+// region Vue3简化写法
+import { ref, reactive } from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+const todos = reactive([
+  { id: '1', title: '起床', done: false },
+  { id: '2', title: '吃饭', done: false },
+  { id: '3', title: '睡觉', done: false }
+])
+let val = ref('')
+
+// eslint-disable-next-line no-unused-vars
+function addTodo() {
+  todos.push({
+    id: todos.length,
+    title: val.value,
+    done: false
+  })
+  val.value = ''
 }
+// endregion
+// region Vue3写法
+// import { ref, reactive } from 'vue'
+//
+// export default {
+//   setup() {
+//     let val = ref('')
+//     const todos = reactive([
+//       { id: '1', title: '起床', done: false },
+//       { id: '2', title: '吃饭', done: false },
+//       { id: '3', title: '睡觉', done: false }
+//     ])
+//
+//     function addTodo() {
+//       todos.push({
+//         id: todos.length,
+//         title: val.value,
+//         done: false
+//       })
+//       val.value = ''
+//     }
+//
+//     return { val, todos, addTodo }
+//   }
+// }
+// endregion
+// region Vue2写法
+// export default {
+//     name: 'App',
+//     data() {
+//       return {
+//         val: '',
+//         todos: [
+//           { id: '1', title: '起床', done: false },
+//           { id: '2', title: '吃饭', done: false },
+//           { id: '3', title: '睡觉', done: false }
+//         ]
+//       }
+//     },
+//     methods: {
+//       addTodo() {
+//         this.todos.push({
+//           id: this.todos.length,
+//           title: this.val,
+//           done: false
+//         })
+//         this.val = ''
+//       }
+//     }
+// }
+// endregion
 </script>
 
 <style>
