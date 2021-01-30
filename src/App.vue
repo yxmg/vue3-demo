@@ -18,7 +18,6 @@ const todos = reactive([
 ])
 let val = ref('')
 
-// eslint-disable-next-line no-unused-vars
 function addTodo() {
   todos.push({
     id: todos.length,
